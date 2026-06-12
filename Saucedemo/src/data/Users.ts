@@ -1,9 +1,9 @@
 import 'dotenv/config';
 
-export interface User{
-    username: string;
-    password: string;
-    type : 'valid'|'locked'|'problem'|'performance';
+export interface User {
+  username: string;
+  password: string;
+  type: 'valid' | 'locked' | 'problem' | 'performance';
 }
 
 /**
@@ -14,24 +14,24 @@ const sharedPassword = process.env.SAUCE_PASSWORD || 'secret_sauce';
 const standardUsername = process.env.SAUCE_USERNAME || 'standard_user';
 
 export const Users: Record<string, User> = {
-            Standard:{
-                username:'standard_user',
-                password:'secret_sauce',
-                type:'valid',
-            },
-            locked:{
-                username:'locked_out_user',
-                password:'secret_sauce',
-                type:'locked',
-            },
-            problem:{
-                username:'problem_user',
-                password:'secret_sauce',
-                type:'problem',
-            },
-            performance:{
-                username:'performance_glitch_user',
-                password:'secret_sauce',
-                type:'performance',
-            },
+  standard: {
+    username: standardUsername,
+    password: sharedPassword,
+    type: 'valid',
+  },
+  locked: {
+    username: 'locked_out_user',
+    password: sharedPassword,
+    type: 'locked',
+  },
+  problem: {
+    username: 'problem_user',
+    password: sharedPassword,
+    type: 'problem',
+  },
+  performance: {
+    username: 'performance_glitch_user',
+    password: sharedPassword,
+    type: 'performance',
+  },
 };
