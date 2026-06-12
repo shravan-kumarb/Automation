@@ -1,7 +1,7 @@
 import productData from './products.json';
 
 export interface Product {
-  name: String;
+  name: string;
   price: number;
 }
 

@@ -19,7 +19,7 @@ export function randomLastName(): string {
   return randomItem(LAST_NAMES);
 }
 /** Random numeric postal code of the given length (default 6). */
-export function randomPostalCode(lenght = 6): string {
+export function randomPostalCode(length = 6): string {
   let code = '';
   for (let i = 0; i < length; i++) code += Math.floor(Math.random() * 10).toString();
   return code;

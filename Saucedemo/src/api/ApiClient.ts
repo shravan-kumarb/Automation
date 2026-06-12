@@ -3,7 +3,6 @@ import { getEnvConfig } from '../config/environments';
 import { retry, NonRetryableError } from '../utils/retry';
 import { logger } from '../utils/logger';
 import { type Post, type CreatePostInput } from './schema';
-import { title } from 'node:process';
 
 /**
  * Throws a NonRetryableError for 4xx (deterministic client errors) and a

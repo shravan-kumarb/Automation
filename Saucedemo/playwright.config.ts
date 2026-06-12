@@ -1,4 +1,4 @@
-import { defineConfig, devices, type ReporterDescription } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 import { getEnvConfig } from '@config/environments';
 
 const env = getEnvConfig();

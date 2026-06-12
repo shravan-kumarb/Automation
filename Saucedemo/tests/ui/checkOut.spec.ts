@@ -45,6 +45,7 @@ test.describe('End- to - End checkout', () => {
   for (const tc of checkoutValidationCases) {
     const id =
       (tc.firstName || 'empty') + '/' + (tc.lastName || 'empty') + '/' + (tc.postalCode || 'empty');
+
     test(`Validation: ${id} -> "${tc.lastName}" @validation @data-driven`, async ({
       authenticatedPage,
       cartPage,

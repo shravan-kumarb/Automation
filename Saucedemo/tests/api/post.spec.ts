@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { ApiClient } from '@api/apiClient';
 import { postIds, newPost } from '@data/apiData';
-import { type } from 'node:os';
 
 test.describe('Post API @api @smoke', () => {
   let api: ApiClient;
@@ -33,13 +32,16 @@ test.describe('Post API @api @smoke', () => {
 
 test.describe('Post API field validation @api @regression', () => {
   let api: ApiClient;
+
   test.beforeAll(async () => {
     api = new ApiClient();
     await api.init();
   });
+
   test.afterAll(async () => {
     await api.dispose();
   });
+
   test('post fields have the correct types', async () => {
     const post = await api.getPostById(postIds.existing);
     expect(typeof post.id).toBe('number');

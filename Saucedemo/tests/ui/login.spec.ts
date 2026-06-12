@@ -1,4 +1,4 @@
-import { test, expect } from '@fixtures/Pages';
+import { test } from '@fixtures/Pages';
 import { Users } from '@data/Users';
 import { invalidLoginCases } from '@data/loginData';
 
