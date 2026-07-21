@@ -5,3 +5,6 @@ allure-report
 allure-results
 test-results
 package-lock.json
+.env.keys
+.env.local
+.env.*.local
