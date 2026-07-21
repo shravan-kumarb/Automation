@@ -14,20 +14,11 @@ jobs:
       matrix:
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
-    env:
-        # Credentials are injected from repository/organization secrets and are
-        # consumed by src/data/Users.ts and src/config/environments.ts via
-        # dotenvx. Setting every variable explicitly here means CI never
-        # depends on decrypting the committed .env (no DOTENV_PRIVATE_KEY
-        # needed) -- dotenvx never overrides a variable that's already set.
-        ENV: production
-        SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-        SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
-        SAUCE_LOCKED_USERNAME: ${{ vars.SAUCE_LOCKED_USERNAME }}
-        SAUCE_PROBLEM_USERNAME: ${{ vars.SAUCE_PROBLEM_USERNAME }}
-        SAUCE_PERFORMANCE_USERNAME: ${{ vars.SAUCE_PERFORMANCE_USERNAME }}
-        BASE_URL: ${{ vars.BASE_URL }}
-        API_URL: ${{ vars.API_URL }}
+    env:  
+        # Pass the single private key. dotenvx will automatically
+        # decrypt your .env.vault file and inject all variables, 
+        # including SAUCE_PERFORMANCE_USERNAME.
+        DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -61,7 +52,7 @@ jobs:
         if: steps.pw-cache.outputs.cache-hit  == 'true' 
         run: npx playwright install-deps
       - name: Run Playwright tests (sharded)
-        run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        run: npx @dotenvx/dotenvx run -- npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
         timeout-minutes: 50
       - name: Upload blob report
         if: always()
