@@ -23,6 +23,9 @@ jobs:
         ENV: production
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
+        SAUCE_LOCKED_USERNAME: ${{ vars.SAUCE_LOCKED_USERNAME }}
+        SAUCE_PROBLEM_USERNAME: ${{ vars.SAUCE_PROBLEM_USERNAME }}
+        SAUCE_PERFORMANCE_USERNAME: ${{ vars.SAUCE_PERFORMANCE_USERNAME }}
         BASE_URL: ${{ vars.BASE_URL }}
         API_URL: ${{ vars.API_URL }}
     steps:
