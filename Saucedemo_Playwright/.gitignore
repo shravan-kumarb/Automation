@@ -1,0 +1,19 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+#Environment /secrets
+#.env is encrypted with dotenvx and safe to commit (see README "Secrets & encryption").
+#.env.keys holds the private decryption key and must NEVER be committed.
+.env.keys
+.env.local
+.env.*.local
+
+#Allure
+/allure-results/
+/allure-report/

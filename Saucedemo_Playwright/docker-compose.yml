@@ -1,0 +1,19 @@
+services:
+  tests:
+    build: .
+    image: saucedemo-tests
+    # .env is committed encrytpted (dotenvx) and decrypted inside the 
+    # container by src/config/environments.ts/ src/data/Users.ts.
+    # Only the private key needs to reach the container, sourced from the
+    # host's env (populate from .env.keys locally, or a CI secrets).
+    environment: 
+      CI: 'true'
+      DOTENV_PRIVATE_KEY: ${DOTENV_PRIVATE_KEY:-}
+    # Persist reports/artifacts back to the host.
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./test-results:/app/tst-results
+    # Larger shared memory avoids Chromium crashes in containers.
+    shm_size: '1gb'
+    command: npm test
