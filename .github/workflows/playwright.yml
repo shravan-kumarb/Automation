@@ -38,7 +38,9 @@ jobs:
         continue-on-error: true
       - name: Get Playwright version
         id: pw
-        run: echo "version=$(node -p \"require('@playwright/test/package.json').version\")" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -e "console.log(require('./node_modules/@playwright/test/package.json').version)")
+          echo "verson=$VERSION" >> $GITHUB_OUTPUT
       - name: Cache Playwright browsers
         id: pw-cache
         uses: actions/cache@v4
