@@ -14,11 +14,11 @@ jobs:
       matrix:
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
-    env:  
-        # Pass the single private key. dotenvx will automatically
-        # decrypt your .env.vault file and inject all variables, 
-        # including SAUCE_PERFORMANCE_USERNAME.
-        DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
+    env:
+      # Pass the single private key. dotenvx will automatically
+      # decrypt your .env.vault file and inject all variables,
+      # including SAUCE_PERFORMANCE_USERNAME.
+      DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,7 +38,9 @@ jobs:
         continue-on-error: true
       - name: Get Playwright version
         id: pw
-        run: echo "version=$(node -p \"require('@playwright/test/package.json').version\")" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -e "console.log(require('./node_modules/@playwright/test/package.json').version)")
+          echo "verson=$VERSION" >> $GITHUB_OUTPUT
       - name: Cache Playwright browsers
         id: pw-cache
         uses: actions/cache@v4
@@ -49,7 +51,7 @@ jobs:
         if: steps.pw-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
       - name: Install Playwright OS deps (cache hit)
-        if: steps.pw-cache.outputs.cache-hit  == 'true' 
+        if: steps.pw-cache.outputs.cache-hit  == 'true'
         run: npx playwright install-deps
       - name: Run Playwright tests (sharded)
         run: npx @dotenvx/dotenvx run -- npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
@@ -124,4 +126,3 @@ jobs:
           path: allure-results/
           retention-days: 30
         continue-on-error: true
-
