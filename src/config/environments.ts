@@ -1,7 +1,7 @@
 //dotenvx transparently decrypts the committed, encrypted .env using
 //DOTENV_PRIVATE_KEY (from .env.keys locally, or a CI/Docker secret).
-import {config} from '@dotenvx/dotenvx';
-config({quiet:true});
+import { config } from '@dotenvx/dotenvx';
+config({ quiet: true });
 
 export interface EnvConfig {
   name: string;

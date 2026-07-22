@@ -23,7 +23,7 @@ End-to-end UI and API test automation built with [Playwright Test](https://playw
 | ---------------- | --------------------------------------------------------------------- |
 | Test runner      | `@playwright/test` `^1.60.0`                                          |
 | Language         | TypeScript (strict, `nodenext` module resolution)                     |
-| Config / secrets | `@dotenvx/dotenvx` (encrypted `.env`)                                                              |
+| Config / secrets | `@dotenvx/dotenvx` (encrypted `.env`)                                 |
 | Reporting        | `allure-playwright`, `allure-commandline`, Playwright HTML            |
 | Linting          | ESLint (flat config, `eslint.config.js`) + `eslint-plugin-playwright` |
 | Formatting       | Prettier                                                              |
@@ -103,11 +103,11 @@ Configuration is resolved in [`src/config/environments.ts`](src/config/environme
 | `ENV`            | Which environment block to use       | `production`                           |
 | `BASE_URL`       | UI base URL                          | `https://www.saucedemo.com/`           |
 | `API_URL`        | API base URL                         | `https://jsonplaceholder.typicode.com` |
-| `SAUCE_USERNAME` | Standard user name                   | see `.env.example`                        |
-| `SAUCE_PASSWORD` | Shared password                      | see `.env.example`                         |
+| `SAUCE_USERNAME` | Standard user name                   | see `.env.example`                     |
+| `SAUCE_PASSWORD` | Shared password                      | see `.env.example`                     |
 | `DEBUG`          | When set, enables `DEBUG`-level logs | unset                                  |
 
-## Secrets & encryption 
+## Secrets & encryption
 
 `.env` is encrypted wit [`.dotenvx`](https://dotenvx.com/) and **committed to git** - every value is stored as `encrypted:...`, so the file is safe to share/review/diff without exposing plaintext secrets. Decryption happens transparently:
 
@@ -121,7 +121,7 @@ Configuration is resolved in [`src/config/environments.ts`](src/config/environme
 
 **Rotating/editing secrets:**
 
-```bash
+````bash
 npm run env:decrypt    #writes plaintext values back into .env for editing
 #edit .env with new values...
 npm run env:encrypt    #re-encrypts in place; commit the result
@@ -137,7 +137,7 @@ npm run env:encrypt    #re-encrypts in place; commit the result
 
 **CI:** the GitHub Actions workflow injects every variable directly from repository secrets/vars (`env:` block in `.github/workflows/playwright.yml`), so it never depends on `DOTENV_PRIVATE_KEY` or decrypting `.env` at all.
 
-**DOCKER:** `docker-compose.yml` passes `DOTENV_PRIVATE_KEY` through from the host environment (populate it from your local `.env.keys` before running `npm run docker:test`) so the container can decrypt the same committed `.env`.   
+**DOCKER:** `docker-compose.yml` passes `DOTENV_PRIVATE_KEY` through from the host environment (populate it from your local `.env.keys` before running `npm run docker:test`) so the container can decrypt the same committed `.env`.
 
 ### Path aliases
 
@@ -160,7 +160,7 @@ npm run test:smoke     # only @smoke tagged tests
 npm run test:regression# only @regression tagged tests
 npm run test:ui        # UI tests only (tests/ui)
 npm run test:api       # API tests only (tests/api)
-```
+````
 
 Useful raw Playwright invocations:
 
